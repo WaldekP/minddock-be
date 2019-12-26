@@ -13,4 +13,4 @@ console.log('bbbbb')
 
 app.use('/', (req,res) => res.send('<h1>To jest proba</h1>'))
 //
-app.listen(2000, () => console.log('Listening at port', 2000))
+app.listen(process.env.PORT, () => console.log('Listening at port', 2000))
