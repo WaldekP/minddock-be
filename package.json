@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "12.x"
+    "node": "12.13.0"
   },
   "name": "Backend",
   "version": "1.0.0",
