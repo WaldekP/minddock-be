@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-// mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true }).catch(e => console.log('BLA', e))
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true }).then(()  => console.log('its ok')).catch(e => console.log('BLA', e))
 app.get('/', (req,res) => res.send('<h1>Co to sie zadzialo</h1>'))
 // app.use('/psychologists', router.psychologists)
 //
