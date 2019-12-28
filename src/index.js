@@ -13,5 +13,6 @@ app.use(express.json())
 app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))
 app.use('/psychologists', router.psychologists)
 //
-mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true }).then((result)  => app.listen(process.env.PORT || 2000, () => console.log('Server running on port', 2000))).catch(e => console.log('BLA', e))
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true }).then((result)  => console.log('XXX')).catch(e => console.log('BLA', e))
 
+app.listen(process.env.PORT || 2000, () => console.log('Server running on port', 2000))
