@@ -4,7 +4,7 @@ const getLogin = (req, res) => {
 
 const postLogin = (req, res) => {
     req.session.isLoggedIn = true
-    res.sendStatus(200)
+    res.cookie('first', 'try').sendStatus(200)
 }
 
 module.exports = {
