@@ -3,7 +3,7 @@ const getLogin = (req, res) => {
 }
 
 const postLogin = (req, res) => {
-    res.cookie('mindockLogin', 'true').sendStatus(200)
+    res.cookie('mindockLogin', 'true', {domain: 'http://localhost:3000'}).sendStatus(200)
 }
 
 module.exports = {
