@@ -14,10 +14,15 @@ const getLogin = (req, res) => {
 
 const postLogin = async (req, res) => {
 
-    const psychologist = await psychologistModel.findOne()
+    const psychologistProfile = await psychologistModel.findOne()
     req.session.isLoggedIn = true
-    req.session.psychologist = psychologist
-    res.status(200).send(req.session.psychologist)
+    req.session.psychologist = psychologistProfile
+
+    const { session: {isLoggedIn, psychologist}} = req
+    res.status(200).send({
+        psychologist,
+        isLoggedIn,
+    })
 }
 
 module.exports = {
