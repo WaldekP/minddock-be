@@ -17,7 +17,7 @@ const postLogin = async (req, res) => {
     const psychologist = await psychologistModel.findOne()
     req.session.isLoggedIn = true
     req.session.psychologist = psychologist
-    res.redirect('/strefa-psychologa').status(200).send(req.session.psychologist)
+    res.status(200).send(req.session.psychologist)
 }
 
 module.exports = {
