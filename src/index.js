@@ -3,12 +3,14 @@ const express = require('express');
 const router = require('../routes/index');
 const mongoose = require('mongoose');
 const cors = require('cors')
+const session = require('express-session')
 
 const app = express();
 app.use(cors());
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(session({secret: 'my secret', resave: false, saveUninitialized: false,}))
 
 app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))
 app.use('/login', router.login)
