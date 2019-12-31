@@ -24,7 +24,7 @@ app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, s
 app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))
 app.use('/login', router.login)
 app.use('/psychologists', router.psychologists)
-app.use('/strefa-psychologa', router.profile)
+app.use('/profile', router.profile)
 //
 mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true }).then((result)  => console.log('MongoDb connected')).catch(e => console.log('BLA', e))
 
