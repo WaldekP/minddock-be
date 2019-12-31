@@ -17,7 +17,9 @@ const store = new MongoDBStore({
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, store: store}))
+app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, store: store, cookie: {
+    sameSite: 'lax'
+    }}));
 
 app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))
 app.use('/login', router.login)
