@@ -1,5 +1,6 @@
 const express = require('express')
 const psychologistModel = require('../models/psychologist')
+const bcrypt = require('bcryptjs')
 
 const router = express.Router()
 
@@ -10,7 +11,18 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const psychologist = new psychologistModel(req.body);
+    const { body: { name, surname, email, password} } = req
+
+    if (!(name && surname && email && password)) {
+        return res.sendStatus(404)
+    }
+    const hashedPassword = await bcrypt.hash(password, 12);
+    const psychologist = new psychologistModel({
+        name,
+        surname,
+        email,
+        password: hashedPassword,
+    });
     await psychologist.save()
         .then(result => {
         console.log('result', result)

@@ -7,9 +7,13 @@ const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session);
 const cookieParser = require('cookie-parser');
 
+var corsOptions = {
+    origin: 'http://localhost:3000/',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 const store = new MongoDBStore({
