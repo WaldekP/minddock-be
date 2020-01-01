@@ -23,8 +23,6 @@ app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, s
         sameSite: 'lax',
         secure: false,
         httpOnly: false,
-        domain: 'http://localhost:3000',
-        path:'/profile'
     }}));
 
 app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))
