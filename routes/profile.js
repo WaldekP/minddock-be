@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     if (req.session.isLoggedIn) {
         res.status(200).send(req.session.psychologist)
     } else {
-        res.send('User not authenticated')
+        res.send('User not authenticated', JSON.stringify(req.cookies))
     }
 })
 
