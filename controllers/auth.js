@@ -3,13 +3,16 @@ const psychologistModel = require('../models/psychologist');
 const getLogin = (req, res) => {
     console.log('xxx', req.session.isLoggedIn)
     if (req.session.isLoggedIn) {
-        return res.status(200).redirect('/strefa-psychologa')
+        return res.status(200).send('Klient zalogowany' + '</form><form action="http://localhost:2000/login/logout" method="post">\n' +
+            '<input type="submit" value="Wyloguj" id="btnSend" />\n' +
+            '</form>')
+    } else {
+        res.send('<form action="http://localhost:2000/login" method="post">\n' +
+            'Username: \n' +
+            '<input type="text" name="user" id="txtUser" />\n' +
+            '<input type="submit" value="Zaloguj" id="btnSend" />\n' +
+            '</form>')
     }
-    res.send('<form action="http://localhost:2000/login" method="post">\n' +
-        'Username: \n' +
-        '<input type="text" name="user" id="txtUser" />\n' +
-        '<input type="submit" value="Submit" id="btnSend" />\n' +
-        '</form>')
 }
 
 const postLogin = async (req, res) => {
@@ -27,7 +30,10 @@ const postLogin = async (req, res) => {
 
 const postLogout = async (req, res) => {
 
-    res.status(200).send('Bla bla bla')
+    req.session.destroy((err) => {
+        console.log(err)
+        res.redirect('/login')
+    })
 }
 
 module.exports = {
