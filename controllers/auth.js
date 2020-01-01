@@ -23,8 +23,7 @@ const postLogin = async (req, res) => {
 
     const { session: {isLoggedIn, psychologist}} = req
     res.status(200).send({
-        psychologist,
-        isLoggedIn,
+        session: req.session
     })
 }
 
