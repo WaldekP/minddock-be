@@ -11,13 +11,6 @@ const cookieParser = require('cookie-parser');
 const app = express();
 app.use(cors());
 app.use(cookieParser());
-app.use('*', function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Accept, Origin, Content-Type, Cookie');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
-});
 
 const store = new MongoDBStore({
     uri: process.env.DB_URL,
@@ -30,6 +23,7 @@ app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, s
         sameSite: 'lax',
         secure: false,
         httpOnly: false,
+        domain: 'http://localhost:3000'
     }}));
 
 app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))

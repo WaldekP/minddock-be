@@ -36,6 +36,10 @@ const postLogout = async (req, res) => {
     })
 }
 
+const postSignUp = (async, res) => {
+    const { body: { name, surname, email, password, confirmPassword} } = req
+}
+
 module.exports = {
     getLogin,
     postLogin,
