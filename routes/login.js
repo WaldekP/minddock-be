@@ -3,8 +3,8 @@ const authController = require('../controllers/auth')
 
 const router = express.Router()
 
+router.post('/logout', authController.postLogout)
 router.get('/', authController.getLogin)
 router.post('/', authController.postLogin)
-router.post('/logout', authController.postLogin)
 
 module.exports = router
