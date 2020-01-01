@@ -25,7 +25,13 @@ const postLogin = async (req, res) => {
     })
 }
 
+const postLogout = async (req, res) => {
+
+    res.status(200).send('Bla bla bla')
+}
+
 module.exports = {
     getLogin,
     postLogin,
+    postLogout,
 }
