@@ -23,7 +23,7 @@ app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, s
         sameSite: 'lax',
         secure: false,
         httpOnly: false,
-        domain: 'http://localhost:3000/',
+        domain: 'http://localhost:3000',
         path:'/profile'
     }}));
 
