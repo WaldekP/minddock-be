@@ -14,18 +14,9 @@ const cookieParser = require('cookie-parser');
 
 const app = express();
 // app.use(cors(corsOptions));
-
-
-var x = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://minddock-front-66zxckuls.now.sh");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Credentials', true)
-    next()
-}
-
 app.all('/*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://minddock-front-66zxckuls.now.sh");
+    console.log('dupsko')
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.header('Access-Control-Allow-Credentials', true)
@@ -42,14 +33,14 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, store: store, cookie: {
         sameSite: 'lax',
-        secure: true,
+        secure: false,
         httpOnly: false,
     }}));
 
+app.use('/profile', router.profile)
 app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))
 app.use('/login', router.login)
 app.use('/psychologists', router.psychologists)
-app.use('/profile', x, router.profile)
 //
 mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true }).then((result)  => console.log('MongoDb connected')).catch(e => console.log('BLA', e))
 
