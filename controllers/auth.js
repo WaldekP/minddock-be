@@ -25,14 +25,14 @@ const postLogin = async (req, res) => {
     res.status(200).send({
         psychologist,
         isLoggedIn,
+        cookie: req.cookies,
     })
 }
 
 const postLogout = async (req, res) => {
 
     req.session.destroy((err) => {
-        console.log(err)
-        res.redirect('/login')
+        res.status(200).send('Wylogowano')
     })
 }
 

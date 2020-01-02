@@ -18,14 +18,13 @@ router.post('/', async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 12);
     const psychologist = new psychologistModel({
-        name,
-        surname,
-        email,
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,
         password: hashedPassword,
     });
     await psychologist.save()
         .then(result => {
-        console.log('result', result)
         res.status(200).send(result)
     }).catch(err => res.status(404).send('Error', err));
 });

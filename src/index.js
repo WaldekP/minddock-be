@@ -6,18 +6,22 @@ const cors = require('cors')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session);
 const cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser')
 
-// var corsOptions = {
-//     origin: 'http://localhost:3000',
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
 
 const app = express();
 // app.use(cors(corsOptions));
+
 app.all('/*', function(req, res, next) {
-    console.log('dupsko')
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    const allowedOrigins = [ 'http://localhost:3000', 'https://minddock-front-66zxckuls.now.sh'];
+    const origin = req.headers.origin;
+
+    console.log('origin', origin)
+    if(allowedOrigins.indexOf(origin) > -1){
+        res.header("Access-Control-Allow-Origin", origin)
+    }
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
+    res.header('Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.header('Access-Control-Allow-Credentials', true)
     next();
@@ -31,6 +35,9 @@ const store = new MongoDBStore({
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
+
 app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, store: store, cookie: {
         sameSite: 'lax',
         secure: false,
