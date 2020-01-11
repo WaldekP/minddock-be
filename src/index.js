@@ -13,7 +13,7 @@ const app = express();
 // app.use(cors(corsOptions));
 
 app.all('/*', function(req, res, next) {
-    const allowedOrigins = [ 'http://localhost:4100', 'https://minddock-front-66zxckuls.now.sh'];
+    const allowedOrigins = [ 'http://localhost:4000', 'https://minddock-front-66zxckuls.now.sh'];
     const origin = req.headers.origin;
 
     console.log('origin', origin)
