@@ -6,21 +6,22 @@ const cors = require('cors')
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session);
 const cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser')
+// const csrf = require('csurf')
 
 
 const app = express();
 // app.use(cors(corsOptions));
 
 app.all('/*', function(req, res, next) {
-    const allowedOrigins = [ 'http://localhost:3000', 'https://minddock-front-66zxckuls.now.sh'];
+    // const allowedOrigins = [ 'http://localhost:4000', 'https://minddock-front-66zxckuls.now.sh'];
     const origin = req.headers.origin;
 
-    console.log('origin', origin)
-    if(allowedOrigins.indexOf(origin) > -1){
-        res.header("Access-Control-Allow-Origin", origin)
-    }
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
+    // console.log('origin', origin)
+    // if(allowedOrigins.indexOf(origin) > -1){
+    //     res.header("Access-Control-Allow-Origin", origin)
+    // }
+    res.header("Access-Control-Allow-Origin", origin)
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.header('Access-Control-Allow-Credentials', true)
@@ -33,6 +34,7 @@ const store = new MongoDBStore({
     collection: 'sessions',
 })
 
+// const csrfProtection = csrf({ cookie: true})
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // app.use(bodyParser.urlencoded({ extended: false }))
@@ -44,8 +46,12 @@ app.use(session({secret: 'my secret', resave: false, saveUninitialized: false, s
         httpOnly: false,
     }}));
 
+// app.get('/getcsrftoken', csrfProtection, function (req, res) {
+//     return res.json({ csrfToken: req.csrfToken() });
+// })
+// app.use(csrfProtection)
 app.use('/profile', router.profile)
-app.get('/', (req,res) => res.send('<h1>Moze zadziala</h1>'))
+app.get('/', (req,res) => res.redirect('/psychologists'))
 app.use('/login', router.login)
 app.use('/psychologists', router.psychologists)
 //

@@ -5,6 +5,9 @@ const bcrypt = require('bcryptjs')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
+    if (!req.session.isLoggedIn) {
+        res.status(401).send('Not authorised')
+    }
     await psychologistModel.find().then(results => {
         return res.status(200).cookie('name', 'tobi', { maxAge: 900000 }).send(results)
     }).catch(() => res.sendStatus(404));
@@ -22,6 +25,7 @@ router.post('/', async (req, res) => {
         surname: req.body.surname,
         email: req.body.email,
         password: hashedPassword,
+        admin: false,
     });
     await psychologist.save()
         .then(result => {

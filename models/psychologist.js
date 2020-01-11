@@ -36,6 +36,10 @@ const psychologistSchema = new mongoose.Schema({
         certificates: [String],
         awards: [String]
     },
+    admin: {
+        type: Boolean,
+        required: true,
+    }
 })
 
 module.exports = mongoose.model('Psychologist', psychologistSchema)

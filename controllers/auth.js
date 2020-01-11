@@ -1,32 +1,39 @@
 const psychologistModel = require('../models/psychologist');
+const bcrypt = require('bcryptjs')
 
-const getLogin = (req, res) => {
-    console.log('xxx', req.session.isLoggedIn)
+const getAuth = (req, res) => {
     if (req.session.isLoggedIn) {
-        return res.status(200).send('Klient zalogowany' + '</form><form action="http://localhost:2000/login/logout" method="post">\n' +
-            '<input type="submit" value="Wyloguj" id="btnSend" />\n' +
-            '</form>')
+        return res.status(200).send(true)
     } else {
-        res.send('<form action="http://localhost:2000/login" method="post">\n' +
-            'Username: \n' +
-            '<input type="text" name="user" id="txtUser" />\n' +
-            '<input type="submit" value="Zaloguj" id="btnSend" />\n' +
-            '</form>')
+        res.status(200).send(false)
     }
 }
 
 const postLogin = async (req, res) => {
 
-    const psychologistProfile = await psychologistModel.findOne()
-    req.session.isLoggedIn = true
-    req.session.psychologist = psychologistProfile
+    console.log('req.body', req.body)
+    const { body: { email, password }} = req
 
-    const { session: {isLoggedIn, psychologist}} = req
-    res.status(200).send({
-        psychologist,
-        isLoggedIn,
-        cookie: req.cookies,
-    })
+    const psychologistProfile = await psychologistModel.findOne({ email: email})
+    try {
+        bcrypt.compare(password, psychologistProfile.password).then((doMatch) => {
+            if (doMatch) {
+                req.session.isLoggedIn = true
+                req.session.psychologist = psychologistProfile
+                const { session: {isLoggedIn, psychologist}} = req
+                res.status(200).send({
+                    psychologist,
+                    isLoggedIn,
+                })
+            } else {
+                res.status(401).send('Bad password')
+            }
+        }).catch((err) => console.log('err', err))
+
+    } catch(err) {
+        res.status(401).send('User doesnt exist')
+    }
+
 }
 
 const postLogout = async (req, res) => {
@@ -36,12 +43,8 @@ const postLogout = async (req, res) => {
     })
 }
 
-const postSignUp = (async, res) => {
-    const { body: { name, surname, email, password, confirmPassword} } = req
-}
-
 module.exports = {
-    getLogin,
+    getAuth,
     postLogin,
     postLogout,
 }
