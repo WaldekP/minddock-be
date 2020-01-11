@@ -13,14 +13,13 @@ const app = express();
 // app.use(cors(corsOptions));
 
 app.all('/*', function(req, res, next) {
-    // const allowedOrigins = [ 'http://localhost:4000', 'https://minddock-front-66zxckuls.now.sh'];
+    const allowedOrigins = [ 'http://localhost:4100', 'https://minddock-front-66zxckuls.now.sh'];
     const origin = req.headers.origin;
 
-    // console.log('origin', origin)
-    // if(allowedOrigins.indexOf(origin) > -1){
-    //     res.header("Access-Control-Allow-Origin", origin)
-    // }
-    res.header("Access-Control-Allow-Origin", origin)
+    console.log('origin', origin)
+    if(allowedOrigins.indexOf(origin) > -1){
+        res.header("Access-Control-Allow-Origin", origin)
+    }
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
