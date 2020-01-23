@@ -11,7 +11,6 @@ const getAuth = (req, res) => {
 
 const postLogin = async (req, res) => {
 
-    console.log('req.body', req.body)
     const { body: { email, password }} = req
 
     const psychologistProfile = await psychologistModel.findOne({ email: email})
