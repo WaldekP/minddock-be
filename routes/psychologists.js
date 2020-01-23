@@ -1,6 +1,14 @@
 const express = require('express')
 const psychologistModel = require('../models/psychologist')
 const bcrypt = require('bcryptjs')
+const nodemailer = require('nodemailer')
+const sendgridTransport = require('nodemailer-sendgrid-transport')
+
+const transporter = nodemailer.createTransport(sendgridTransport({
+    auth: {
+        api_key: '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',
+    }
+}))
 
 const router = express.Router()
 
@@ -29,7 +37,13 @@ router.post('/', async (req, res) => {
     });
     await psychologist.save()
         .then(result => {
-        res.status(200).send(result)
+            res.status(200).send(result)
+            return transporter.sendMail({
+                to: req.body.email,
+                from: 'waldkowski@gmail.com',
+                subject: 'Signup',
+                html: '<h1>Udalo sie zapisac</h1>'
+            })
     }).catch(err => res.status(404).send('Error', err));
 });
 
