@@ -6,7 +6,7 @@ const sendgridTransport = require('nodemailer-sendgrid-transport')
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: process.env.API_KEY,
+        api_key: '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',
     }
 }))
 
@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
             return transporter.sendMail({
                 to: req.body.email,
                 from: 'waldkowski@gmail.com',
-                subject: 'Signup',
+                subject: `Signup for ${req.body.name} ${req.body.surname}`,
                 html: '<h1>Udalo sie zapisac</h1>'
             })
     }).catch(err => res.status(404).send('Error', err));
