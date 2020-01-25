@@ -15,18 +15,18 @@ router.get('/', (req, res) => {
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/', async (req, res) => {
     // await psychologistModel.findByIdAndUpdate({_id: req.params.id}, {name: req.query.name}, { upsert: true },)
     //     .then(result => res.status(200).send(result))
     //     .catch(err => res.status(404).send('Error', err))
 
-    const { body: { password} } = req;
+    // const { body: { password} } = req;
 
-    const newPassword = await bcrypt.hash(12, password)
+    // const newPassword = await bcrypt.hash(12, password)
 
     await psychologistModel.findById(req.params.id )
         .then(result => {
-            result.password = newPassword;
+            result.password = 'azorek1';
             result.save()
             return res.status(200).send(result)
         })
