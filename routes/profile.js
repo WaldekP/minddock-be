@@ -1,5 +1,6 @@
 const express = require('express')
 const psychologistModel = require('../models/psychologist')
+const bcrypt = require('bcryptjs')
 
 const router = express.Router()
 
