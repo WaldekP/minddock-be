@@ -22,7 +22,7 @@ router.put('/:id', async (req, res) => {
 
     // const { body: { password} } = req;
 
-    const newPassword = await bcrypt.hash(12, 'azorek1')
+    const newPassword = await bcrypt.hash('azorek1', 12)
 
     await psychologistModel.findById(req.params.id)
         .then(result => {
