@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     }
 })
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
     // await psychologistModel.findByIdAndUpdate({_id: req.params.id}, {name: req.query.name}, { upsert: true },)
     //     .then(result => res.status(200).send(result))
     //     .catch(err => res.status(404).send('Error', err))
