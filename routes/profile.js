@@ -25,7 +25,6 @@ router.put('/', async (req, res) => {
 
     await psychologistModel.findById(req.params.id )
         .then(result => {
-            console.log('result', result)
             result.password = newPassword;
             result.save()
             return res.status(200).send(result)
@@ -50,12 +49,12 @@ router.post('/', async (req, res) => {
     await psychologist.save()
         .then(result => {
             res.status(200).send(result)
-            return transporter.sendMail({
-                to: req.body.email,
-                from: 'waldkowski@gmail.com',
-                subject: `Signup for ${req.body.name} ${req.body.surname}`,
-                html: '<h1>Udalo sie zapisac</h1>'
-            })
+            // return transporter.sendMail({
+            //     to: req.body.email,
+            //     from: 'waldkowski@gmail.com',
+            //     subject: `Signup for ${req.body.name} ${req.body.surname}`,
+            //     html: '<h1>Udalo sie zapisac</h1>'
+            // })
         }).catch(err => res.status(404).send('Error', err));
 });
 
