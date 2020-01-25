@@ -1,5 +1,6 @@
 const express = require('express')
 const nodemailer = require('nodemailer')
+const psychologistModel = require('../models/psychologist')
 const sendgridTransport = require('nodemailer-sendgrid-transport')
 
 const transporter = nodemailer.createTransport(sendgridTransport({
