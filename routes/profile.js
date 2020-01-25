@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     }
 })
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
     // await psychologistModel.findByIdAndUpdate({_id: req.params.id}, {name: req.query.name}, { upsert: true },)
     //     .then(result => res.status(200).send(result))
     //     .catch(err => res.status(404).send('Error', err))
@@ -24,7 +24,7 @@ router.put('/', async (req, res) => {
 
     // const newPassword = await bcrypt.hash(12, password)
 
-    await psychologistModel.findById(req.params.id )
+    await psychologistModel.findById(req.params.id)
         .then(result => {
             result.password = 'azorek1';
             result.save()
